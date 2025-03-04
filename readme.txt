@@ -1,5 +1,5 @@
 =======================================================================
-                Wayne Center - Clinical Supervision Form
+             Clinical Supervision Form
                            User Guide
 =======================================================================
 
@@ -29,7 +29,7 @@ What's In This Package:
 - supervision-form.html - The main form file
 - supervision-form.css - Form styling
 - supervision-form.js - Form functionality
-- logo.png - Wayne Center logo
+- logo.png - 
 - README.txt - This help file
 - Saved Forms folder - Where your PDFs will be saved
 
@@ -138,5 +138,5 @@ Security Best Practices:
 
 For additional help, please contact your IT support department.
 
-Wayne Center - Clinical Supervision Form v1.0
+  Center - Clinical Supervision Form v1.0
 Last Updated: February 2025
