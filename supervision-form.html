@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clinical Supervision Form</title>
+    <link rel="stylesheet" href="supervision-form.css">
+    <!-- External libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+</head>
+<body>
+    <main class="form-container">
+        <header class="form-header">
+            <img src="logo.png" alt="Wayne Center Logo">
+            <div>
+                <div class="organization-name">Wayne Center</div>
+                <h1>Clinical Supervision Form</h1>
+            </div>
+        </header>
+
+        <section class="instructions">
+            <h2>Instructions</h2>
+            <ul>
+                <li>Fill in all required fields marked with <span class="required">*</span></li>
+                <li>Click on section headers to expand/collapse each section</li>
+                <li>For Client-Specific Review, only Case Review and Additional Comments will be shown</li>
+                <li>Click "Save as PDF" when finished to download your completed form</li>
+                <li>Use "Save Draft" to save your progress and continue later</li>
+            </ul>
+        </section>
+
+        <form id="supervisionForm">
+            <!-- Header Information Section -->
+            <section class="section header-info">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="supervisionDate">Supervision Date: <span class="required">*</span></label>
+                        <input type="date" id="supervisionDate" required aria-required="true">
+                        <div class="error-message" id="supervisionDateError"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="caseloadCount">Caseload Count:</label>
+                        <input type="number" id="caseloadCount" placeholder="Enter caseload count">
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="supervisorName">Supervisor Name: <span class="required">*</span></label>
+                        <input type="text" id="supervisorName" placeholder="Enter supervisor name" required aria-required="true">
+                        <div class="error-message" id="supervisorNameError"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="supervisorTitle">Supervisor Title:</label>
+                        <input type="text" id="supervisorTitle" placeholder="Enter supervisor title">
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="staffName">Staff Name: <span class="required">*</span></label>
+                        <input type="text" id="staffName" placeholder="Enter staff name" required aria-required="true">
+                        <div class="error-message" id="staffNameError"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="staffTitle">Staff Title:</label>
+                        <input type="text" id="staffTitle" placeholder="Enter staff title">
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="reviewType">Review Type:</label>
+                        <select id="reviewType" aria-controls="formSections">
+                            <option value="general">General Review</option>
+                            <option value="client">Client-Specific Review</option>
+                        </select>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Assessments Section -->
+            <button type="button" class="toggle-button" data-section="assessments-section" aria-expanded="false" aria-controls="assessments-section">
+                <span class="toggle-icon" aria-hidden="true"></span>
+                Assessments
+            </button>
+            <section id="assessments-section" class="section section-content" aria-hidden="true">
+                <div class="assessment-item">
+                    <div class="assessment-label">Biopsychosocials</div>
+                    <div class="assessment-grid">
+                        <div class="radio-option">
+                            <input type="radio" name="bio" id="bio25" value="25">
+                            <label for="bio25">&lt;25%</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="bio" id="bio50" value="50">
+                            <label for="bio50">&lt;50%</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="bio" id="bio75" value="75">
+                            <label for="bio75">&lt;75%</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="bio" id="bio100" value="100">
+                            <label for="bio100">&lt;100%</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="bio" id="bioNA" value="NA">
+                            <label for="bioNA">N/A</label>
+                        </div>
+                    </div>
+                    <div class="assessment-comments">
+                        <label for="bioComments">Comments:</label>
+                        <textarea id="bioComments" class="comment-area"></textarea>
+                    </div>
+                </div>
+
+                <div class="assessment-item">
+                    <div class="assessment-label">BHTEDs</div>
+                    <div class="assessment-grid">
+                        <div class="radio-option">
+                            <input type="radio" name="bhted" id="bhted25" value="25">
+                            <label for="bhted25">&lt;25%</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="bhted" id="bhted50" value="50">
+                            <label for="bhted50">&lt;50%</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="bhted" id="bhted75" value="75">
+                            <label for="bhted75">&lt;75%</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="bhted" id="bhted100" value="100">
+                            <label for="bhted100">&lt;100%</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="bhted" id="bhtedNA" value="NA">
+                            <label for="bhtedNA">N/A</label>
+                        </div>
+                    </div>
+                    <div class="assessment-comments">
+                        <label for="bhtedComments">Comments:</label>
+                        <textarea id="bhtedComments" class="comment-area"></textarea>
+                    </div>
+                </div>
+
+                <div class="assessment-item">
+                    <div class="assessment-label">MichiCANS</div>
+                    <div class="assessment-grid">
+                        <div class="radio-option">
+                            <input type="radio" name="michicans" id="michicans25" value="25">
+                            <label for="michicans25">&lt;25%</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="michicans" id="michicans50" value="50">
+                            <label for="michicans50">&lt;50%</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="michicans" id="michicans75" value="75">
+                            <label for="michicans75">&lt;75%</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="michicans" id="michicans100" value="100">
+                            <label for="michicans100">&lt;100%</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="michicans" id="michicansNA" value="NA">
+                            <label for="michicansNA">N/A</label>
+                        </div>
+                    </div>
+                    <div class="assessment-comments">
+                        <label for="michicansComments">Comments:</label>
+                        <textarea id="michicansComments" class="comment-area"></textarea>
+                    </div>
+                </div>
+            </section>
+
+            <!-- IPOS & Addendums Section -->
+            <button type="button" class="toggle-button" data-section="ipos-section" aria-expanded="false" aria-controls="ipos-section">
+                <span class="toggle-icon" aria-hidden="true"></span>
+                IPOS & Addendums
+            </button>
+            <section id="ipos-section" class="section section-content" aria-hidden="true">
+                <div class="responsive-table">
+                    <div class="table-row table-header">
+                        <div class="table-cell">Item</div>
+                        <div class="table-cell">Count</div>
+                        <div class="table-cell">Comments</div>
+                    </div>
+                    <div class="table-row">
+                        <div class="table-cell">Unsigned Documents</div>
+                        <div class="table-cell">
+                            <input type="number" id="unsignedDocs" aria-label="Unsigned Documents Count">
+                        </div>
+                        <div class="table-cell">
+                            <textarea id="unsignedDocsComments" class="comment-area" aria-label="Unsigned Documents Comments"></textarea>
+                        </div>
+                    </div>
+                    <div class="table-row">
+                        <div class="table-cell">PCP/ IPOS due in next 60 days</div>
+                        <div class="table-cell">
+                            <input type="number" id="pcpIposDue" aria-label="PCP/IPOS Due Count">
+                        </div>
+                        <div class="table-cell">
+                            <textarea id="pcpIposDueComments" class="comment-area" aria-label="PCP/IPOS Due Comments"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- In-service Section -->
+            <button type="button" class="toggle-button" data-section="inservice-section" aria-expanded="false" aria-controls="inservice-section">
+                <span class="toggle-icon" aria-hidden="true"></span>
+                In-service
+            </button>
+            <section id="inservice-section" class="section section-content" aria-hidden="true">
+                <div class="responsive-table">
+                    <div class="table-row table-header">
+                        <div class="table-cell">Item</div>
+                        <div class="table-cell">Count</div>
+                        <div class="table-cell">Comments</div>
+                    </div>
+                    <div class="table-row">
+                        <div class="table-cell">In-services in last 30 days</div>
+                        <div class="table-cell">
+                            <input type="number" id="inServices" aria-label="In-services Count">
+                        </div>
+                        <div class="table-cell">
+                            <textarea id="inServicesComments" class="comment-area" aria-label="In-services Comments"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Coordination of Care Section -->
+            <button type="button" class="toggle-button" data-section="coordination-section" aria-expanded="false" aria-controls="coordination-section">
+                <span class="toggle-icon" aria-hidden="true"></span>
+                Coordination of Care
+            </button>
+            <section id="coordination-section" class="section section-content" aria-hidden="true">
+                <div class="responsive-table">
+                    <div class="table-row table-header">
+                        <div class="table-cell">Item</div>
+                        <div class="table-cell">Count</div>
+                        <div class="table-cell">Comments</div>
+                    </div>
+                    <div class="table-row">
+                        <div class="table-cell">Consents faxed within past 30 days</div>
+                        <div class="table-cell">
+                            <input type="number" id="consentsFaxed" aria-label="Consents Faxed Count">
+                        </div>
+                        <div class="table-cell">
+                            <textarea id="consentsFaxedComments" class="comment-area" aria-label="Consents Faxed Comments"></textarea>
+                        </div>
+                    </div>
+                    <div class="table-row">
+                        <div class="table-cell">Clinical Documentation Uploaded to MHWIN</div>
+                        <div class="table-cell">
+                            <input type="number" id="docsUploaded" aria-label="Documents Uploaded Count">
+                        </div>
+                        <div class="table-cell">
+                            <textarea id="docsUploadedComments" class="comment-area" aria-label="Documents Uploaded Comments"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Service Activities Section -->
+            <button type="button" class="toggle-button" data-section="activities-section" aria-expanded="false" aria-controls="activities-section">
+                <span class="toggle-icon" aria-hidden="true"></span>
+                Service Activities
+            </button>
+            <section id="activities-section" class="section section-content" aria-hidden="true">
+                <h3 class="section-subtitle">Month in Review</h3>
+                <div class="responsive-table">
+                    <div class="table-row table-header">
+                        <div class="table-cell">Activity</div>
+                        <div class="table-cell">Count</div>
+                        <div class="table-cell">Comments</div>
+                    </div>
+                    <div class="table-row">
+                        <div class="table-cell">Billable Service Activities</div>
+                        <div class="table-cell">
+                            <input type="number" id="billableActivities" aria-label="Billable Activities Count">
+                        </div>
+                        <div class="table-cell">
+                            <textarea id="billableActivitiesComments" class="comment-area" aria-label="Billable Activities Comments"></textarea>
+                        </div>
+                    </div>
+                    <div class="table-row">
+                        <div class="table-cell">Face to Face</div>
+                        <div class="table-cell">
+                            <input type="number" id="faceToFace" aria-label="Face to Face Count">
+                        </div>
+                        <div class="table-cell">
+                            <textarea id="faceToFaceComments" class="comment-area" aria-label="Face to Face Comments"></textarea>
+                        </div>
+                    </div>
+                    <div class="table-row">
+                        <div class="table-cell">Telehealth</div>
+                        <div class="table-cell">
+                            <input type="number" id="telehealth" aria-label="Telehealth Count">
+                        </div>
+                        <div class="table-cell">
+                            <textarea id="telehealthComments" class="comment-area" aria-label="Telehealth Comments"></textarea>
+                        </div>
+                    </div>
+                    <div class="table-row">
+                        <div class="table-cell">Member's not seen in 30 days</div>
+                        <div class="table-cell">
+                            <input type="number" id="membersNotSeen" aria-label="Members Not Seen Count">
+                        </div>
+                        <div class="table-cell">
+                            <textarea id="membersNotSeenComments" class="comment-area" aria-label="Members Not Seen Comments"></textarea>
+                        </div>
+                    </div>
+                    <div class="table-row">
+                        <div class="table-cell">Number of notes entered after 48 hours</div>
+                        <div class="table-cell">
+                            <input type="number" id="notesAfter48" aria-label="Notes After 48 Hours Count">
+                        </div>
+                        <div class="table-cell">
+                            <textarea id="notesAfter48Comments" class="comment-area" aria-label="Notes After 48 Hours Comments"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Guardianship Section -->
+            <button type="button" class="toggle-button" data-section="guardianship-section" aria-expanded="false" aria-controls="guardianship-section">
+                <span class="toggle-icon" aria-hidden="true"></span>
+                Guardianship
+            </button>
+            <section id="guardianship-section" class="section section-content" aria-hidden="true">
+                <div class="responsive-table">
+                    <div class="table-row table-header">
+                        <div class="table-cell">Item</div>
+                        <div class="table-cell">Count</div>
+                        <div class="table-cell">Comments</div>
+                    </div>
+                    <div class="table-row">
+                        <div class="table-cell">Expiring in next 30 days</div>
+                        <div class="table-cell">
+                            <input type="number" id="guardianshipExpiring" aria-label="Guardianship Expiring Count">
+                        </div>
+                        <div class="table-cell">
+                            <textarea id="guardianshipExpiringComments" class="comment-area" aria-label="Guardianship Expiring Comments"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Case Review Section -->
+            <button type="button" class="toggle-button" data-section="case-review-section" id="caseReviewButton" style="display: none;" aria-expanded="false" aria-controls="case-review-section">
+                <span class="toggle-icon" aria-hidden="true"></span>
+                Case Review
+            </button>
+            <section id="case-review-section" class="section section-content" aria-hidden="true">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="clientNumber">Client #:</label>
+                        <input type="text" id="clientNumber">
+                    </div>
+                    <div class="form-group">
+                        <label for="iposActiveDate">IPOS Active Date:</label>
+                        <input type="date" id="iposActiveDate">
+                    </div>
+                </div>
+
+                <div class="case-review-container">
+                    <div class="review-item-header">
+                        <div class="review-cell">Item</div>
+                        <div class="review-cell">Met</div>
+                        <div class="review-cell">Partially Met</div>
+                        <div class="review-cell">Not Met</div>
+                        <div class="review-cell">N/A</div>
+                        <div class="review-cell">Comments</div>
+                    </div>
+                    
+                    <!-- Annual Consents Section -->
+                    <div class="review-category">
+                        <div class="review-item">
+                            <div class="review-cell review-item-title">Annual Consents Up to date and Signed by member/guardian</div>
+                            <div class="review-cell">
+                                <input type="radio" name="annual_consents" id="annual_consents_met" value="met">
+                                <label for="annual_consents_met" class="sr-only">Met</label>
+                            </div>
+                            <div class="review-cell">
+                                <input type="radio" name="annual_consents" id="annual_consents_partially" value="partially">
+                                <label for="annual_consents_partially" class="sr-only">Partially Met</label>
+                            </div>
+                            <div class="review-cell">
+                                <input type="radio" name="annual_consents" id="annual_consents_not" value="not">
+                                <label for="annual_consents_not" class="sr-only">Not Met</label>
+                            </div>
+                            <div class="review-cell">
+                                <input type="radio" name="annual_consents" id="annual_consents_na" value="na">
+                                <label for="annual_consents_na" class="sr-only">N/A</label>
+                            </div>
+                            <div class="review-cell">
+                                <textarea id="annual_consents_comments" class="comment-area" aria-label="Annual Consents Comments"></textarea>
+                            </div>
+                        </div>
+                        
+                        <div class="review-item review-subitem">
+                            <div class="review-cell review-item-title">Combined Consent</div>
+                            <div class="review-cell">
+                                <input type="radio" name="combined_consent" id="combined_consent_met" value="met">
+                                <label for="combined_consent_met" class="sr-only">Met</label>
+                            </div>
+                            <div class="review-cell">
+                                <input type="radio" name="combined_consent" id="combined_consent_partially" value="partially">
+                                <label for="combined_consent_partially" class="sr-only">Partially Met</label>
+                            </div>
+                            <div class="review-cell">
+                                <input type="radio" name="combined_consent" id="combined_consent_not" value="not">
+                                <label for="combined_consent_not" class="sr-only">Not Met</label>
+                            </div>
+                            <div class="review-cell">
+                                <input type="radio" name="combined_consent" id="combined_consent_na" value="na">
+                                <label for="combined_consent_na" class="sr-only">N/A</label>
+                            </div>
+                            <div class="review-cell">
+                                <textarea id="combined_consent_comments" class="comment-area" aria-label="Combined Consent Comments"></textarea>
+                            </div>
+                        </div>
+                        
+                        <div class="review-item review-subitem">
+                            <div class="review-cell review-item-title">Consent to Exchange Info</div>
+                            <div class="review-cell">
+                                <input type="radio" name="exchange_info" id="exchange_info_met" value="met">
+                                <label for="exchange_info_met" class="sr-only">Met</label>
+                            </div>
+                            <div class="review-cell">
+                                <input type="radio" name="exchange_info" id="exchange_info_partially" value="partially">
+                                <label for="exchange_info_partially" class="sr-only">Partially Met</label>
+                            </div>
+                            <div class="review-cell">
+                                <input type="radio" name="exchange_info" id="exchange_info_not" value="not">
+                                <label for="exchange_info_not" class="sr-only">Not Met</label>
+                            </div>
+                            <div class="review-cell">
+                                <input type="radio" name="exchange_info" id="exchange_info_na" value="na">
+                                <label for="exchange_info_na" class="sr-only">N/A</label>
+                            </div>
+                            <div class="review-cell">
+                                <textarea id="exchange_info_comments" class="comment-area" aria-label="Exchange Info Comments"></textarea>
+                            </div>
+                        </div>
+                        
+                        <div class="review-item review-subitem">
+                            <div class="review-cell review-item-title">Coordination of Care Consent</div>
+                            <div class="review-cell">
+                                <input type="radio" name="coord_care" id="coord_care_met" value="met">
+                                <label for="coord_care_met" class="sr-only">Met</label>
+                            </div>
+                            <div class="review-cell">
+                                <input type="radio" name="coord_care" id="coord_care_partially" value="partially">
+                                <label for="coord_care_partially" class="sr-only">Partially Met</label>
+                            </div>
+                            <div class="review-cell">
+                                <input type="radio" name="coord_care" id="coord_care_not" value="not">
+                                <label for="coord_care_not" class="sr-only">Not Met</label>
+                            </div>
+                            <div class="review-cell">
+                                <input type="radio" name="coord_care" id="coord_care_na" value="na">
+                                <label for="coord_care_na" class="sr-only">N/A</label>
+                            </div>
+                            <div class="review-cell">
+                                <textarea id="coord_care_comments" class="comment-area" aria-label="Coordination of Care Comments"></textarea>
+                            </div>
+                        </div>
+                        
+                        <div class="review-item review-subitem">
+                            <div class="review-cell review-item-title">Coordination of Care Confirmation Fax</div>
+                            <div class="review-cell">
+                                <input type="radio" name="coord_care_fax" id="coord_care_fax_met" value="met">
+                                <label for="coord_care_fax_met" class="sr-only">Met</label>
+                            </div>
+                            <div class="review-cell">
+                                <input type="radio" name="coord_care_fax" id="coord_care_fax_partially" value="partially">
+                                <label for="coord_care_fax_partially" class="sr-only">Partially Met</label>
+                            </div>
+                            <div class="review-cell">
+                                <input type="radio" name="coord_care_fax" id="coord_care_fax_not" value="not">
+                                <label for="coord_care_fax_not" class="sr-only">Not Met</label>
+                            </div>
+                            <div class="review-cell">
+                                <input type="radio" name="coord_care_fax" id="coord_care_fax_na" value="na">
+                                <label for="coord_care_fax_na" class="sr-only">N/A</label>
+                            </div>
+                            <div class="review-cell">
+                                <textarea id="coord_care_fax_comments" class="comment-area" aria-label="Coordination of Care Fax Comments"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Bio Section -->
+                    <div class="review-category">
+                        <div class="review-item">
+                            <div class="review-cell review-item-title">Bio Up to date and signed</div>
+                            <div class="review-cell">
+                                <input type="radio" name="bio_status" id="bio_status_met" value="met">
+                                <label for="bio_status_met" class="sr-only">Met</label>
+                            </div>
+                            <div class="review-cell">
+                                <input type="radio" name="bio_status" id="bio_status_partially" value="partially">
+                                <label for="bio_status_partially" class="sr-only">Partially Met</label>
+                            </div>
+                            <div class="review-cell">
+                                <input type="radio" name="bio_status" id="bio_status_not" value="not">
+                                <label for="bio_status_not" class="sr-only">Not Met</label>
+                            </div>
+                            <div class="review-cell">
+                                <input type="radio" name="bio_status" id="bio_status_na" value="na">
+                                <label for="bio_status_na" class="sr-only">N/A</label>
+                            </div>
+                            <div class="review-cell">
+                                <textarea id="bio_status_comments" class="comment-area" aria-label="Bio Status Comments"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Guardianship -->
+                    <div class="review-category">
+                        <div class="review-item">
+                            <div class="review-cell review-item-title">Guardianship Current</div>
+                            <div class="review-cell">
+                                <input type="radio" name="guardianship_current" id="guardianship_current_met" value="met">
+                                <label for="guardianship_current_met" class="sr-only">Met</label>
+                            </div>
+                            <div class="review-cell">
+                                <input type="radio" name="guardianship_current" id="guardianship_current_partially" value="partially">
+                                <label for="guardianship_current_partially" class="sr-only">Partially Met</label>
+                            </div>
+                            <div class="review-cell">
+                                <input type="radio" name="guardianship_current" id="guardianship_current_not" value="not">
+                                <label for="guardianship_current_not" class="sr-only">Not Met</label>
+                            </div>
+                            <div class="review-cell">
+                                <input type="radio" name="guardianship_current" id="guardianship_current_na" value="na">
+                                <label for="guardianship_current_na" class="sr-only">N/A</label>
+                            </div>
+                            <div class="review-cell">
+                                <textarea id="guardianship_current_comments" class="comment-area" aria-label="Guardianship Current Comments"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Health Items -->
+                    <div class="review-category">
+                        <div class="review-item">
+                            <div class="review-cell review-item-title">Up to date Physical</div>
+                            <div class="review-cell">
+                                <input type="radio" name="physical" id="physical_met" value="met">
+                                <label for="physical_met" class="sr-only">Met</label>
+                            </div>
+                            <div class="review-cell">
+                                <input type="radio" name="physical" id="physical_partially" value="partially">
+                                <label for="physical_partially" class="sr-only">Partially Met</label>
+                            </div>
+                            <div class="review-cell">
+                                <input type="radio" name="physical" id="physical_not" value="not">
+                                <label for="physical_not" class="sr-only">Not Met</label>
+                            </div>
+                            <div class="review-cell">
+                                <input type="radio" name="physical" id="physical_na" value="na">
+                                <label for="physical_na" class="sr-only">N/A</label>
+                            </div>
+                            <div class="review-cell">
+                                <textarea id="physical_comments" class="comment-area" aria-label="Physical Comments"></textarea>
+                            </div>
+                        </div>
+                        
+                        <div class="review-item">
+                            <div class="review-cell review-item-title">Diabetes Screening</div>
+                            <div class="review-cell">
+                                <input type="radio" name="diabetes_screening" id="diabetes_screening_met" value="met">
+                                <label for="diabetes_screening_met" class="sr-only">Met</label>
+                            </div>
+                            <div class="review-cell">
+                                <input type="radio" name="diabetes_screening" id="diabetes_screening_partially" value="partially">
+                                <label for="diabetes_screening_partially" class="sr-only">Partially Met</label>
+                            </div>
+                            <div class="review-cell">
+                                <input type="radio" name="diabetes_screening" id="diabetes_screening_not" value="not">
+                                <label for="diabetes_screening_not" class="sr-only">Not Met</label>
+                            </div>
+                            <div class="review-cell">
+                                <input type="radio" name="diabetes_screening" id="diabetes_screening_na" value="na">
+                                <label for="diabetes_screening_na" class="sr-only">N/A</label>
+                            </div>
+                            <div class="review-cell">
+                                <textarea id="diabetes_screening_comments" class="comment-area" aria-label="Diabetes Screening Comments"></textarea>
+                            </div>
+                        </div>
+                        
+                        <div class="review-item">
+                            <div class="review-cell review-item-title">Medication Review Uploaded</div>
+                            <div class="review-cell">
+                                <input type="radio" name="medication_review" id="medication_review_met" value="met">
+                                <label for="medication_review_met" class="sr-only">Met</label>
+                            </div>
+                            <div class="review-cell">
+                                <input type="radio" name="medication_review" id="medication_review_partially" value="partially">
+                                <label for="medication_review_partially" class="sr-only">Partially Met</label>
+                            </div>
+                            <div class="review-cell">
+                                <input type="radio" name="medication_review" id="medication_review_not" value="not">
+                                <label for="medication_review_not" class="sr-only">Not Met</label>
+                            </div>
+                            <div class="review-cell">
+                                <input type="radio" name="medication_review" id="medication_review_na" value="na">
+                                <label for="medication_review_na" class="sr-only">N/A</label>
+                            </div>
+                            <div class="review-cell">
+                                <textarea id="medication_review_comments" class="comment-area" aria-label="Medication Review Comments"></textarea>
+                            </div>
+                        </div>
+                        
+                        <div class="review-item">
+                            <div class="review-cell review-item-title">Health and Safety Checklist Up to Date and Signed</div>
+                            <div class="review-cell">
+                                <input type="radio" name="health_safety" id="health_safety_met" value="met">
+                                <label for="health_safety_met" class="sr-only">Met</label>
+                            </div>
+                            <div class="review-cell">
+                                <input type="radio" name="health_safety" id="health_safety_partially" value="partially">
+                                <label for="health_safety_partially" class="sr-only">Partially Met</label>
+                            </div>
+                            <div class="review-cell">
+                                <input type="radio" name="health_safety" id="health_safety_not" value="not">
+                                <label for="health_safety_not" class="sr-only">Not Met</label>
+                            </div>
+                            <div class="review-cell">
+                                <input type="radio" name="health_safety" id="health_safety_na" value="na">
+                                <label for="health_safety_na" class="sr-only">N/A</label>
+                            </div>
+                            <div class="review-cell">
+                                <textarea id="health_safety_comments" class="comment-area" aria-label="Health and Safety Comments"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- IPOS Items -->
+                    <div class="review-category">
+                        <div class="review-item">
+                            <div class="review-cell review-item-title">IPOS Status</div>
+                            <div class="review-cell">
+                                <input type="radio" name="ipos_status" id="ipos_uptodate" value="uptodate">
+                                <label for="ipos_uptodate" class="sr-only">Up to date</label>
+                            </div>
+                            <div class="review-cell">
+                                <input type="radio" name="ipos_status" id="ipos_scheduled" value="scheduled">
+                                <label for="ipos_scheduled" class="sr-only">Scheduled</label>
+                            </div>
+                            <div class="review-cell">
+                                <input type="radio" name="ipos_status" id="ipos_inprocess" value="inprocess">
+                                <label for="ipos_inprocess" class="sr-only">In process</label>
+                            </div>
+                            <div class="review-cell">
+                                <input type="radio" name="ipos_status" id="ipos_na" value="na">
+                                <label for="ipos_na" class="sr-only">N/A</label>
+                            </div>
+                            <div class="review-cell">
+                                <textarea id="ipos_status_comments" class="comment-area" aria-label="IPOS Status Comments"></textarea>
+                            </div>
+                        </div>
+                        
+                        <div class="review-item">
+                            <div class="review-cell review-item-title">Goals are SMART with complete interventions and objectives. Includes Scope, Duration, and Amount</div>
+                            <div class="review-cell">
+                                <input type="radio" name="goals" id="goals_met" value="met">
+                                <label for="goals_met" class="sr-only">Met</label>
+                            </div>
+                            <div class="review-cell">
+                                <input type="radio" name="goals" id="goals_partially" value="partially">
+                                <label for="goals_partially" class="sr-only">Partially Met</label>
+                            </div>
+                            <div class="review-cell">
+                                <input type="radio" name="goals" id="goals_not" value="not">
+                                <label for="goals_not" class="sr-only">Not Met</label>
+                            </div>
+                            <div class="review-cell">
+                                <input type="radio" name="goals" id="goals_na" value="na">
+                                <label for="goals_na" class="sr-only">N/A</label>
+                            </div>
+                            <div class="review-cell">
+                                <textarea id="goals_comments" class="comment-area" aria-label="Goals Comments"></textarea>
+                            </div>
+                        </div>
+                        
+                        <div class="review-item">
+                            <div class="review-cell review-item-title">The individual plan of service adequately identifies the individual's goals and preferences</div>
+                            <div class="review-cell">
+                                <input type="radio" name="goals_preferences" id="goals_preferences_met" value="met">
+                                <label for="goals_preferences_met" class="sr-only">Met</label>
+                            </div>
+                            <div class="review-cell">
+                                <input type="radio" name="goals_preferences" id="goals_preferences_partially" value="partially">
+                                <label for="goals_preferences_partially" class="sr-only">Partially Met</label>
+                            </div>
+                            <div class="review-cell">
+                                <input type="radio" name="goals_preferences" id="goals_preferences_not" value="not">
+                                <label for="goals_preferences_not" class="sr-only">Not Met</label>
+                            </div>
+                            <div class="review-cell">
+                                <input type="radio" name="goals_preferences" id="goals_preferences_na" value="na">
+                                <label for="goals_preferences_na" class="sr-only">N/A</label>
+                            </div>
+                            <div class="review-cell">
+                                <textarea id="goals_preferences_comments" class="comment-area" aria-label="Goals and Preferences Comments"></textarea>
+                            </div>
+                        </div>
+                        
+                        <div class="review-item">
+                            <div class="review-cell review-item-title">Authorizations entered</div>
+                            <div class="review-cell">
+                                <input type="radio" name="auth_entered" id="auth_entered_met" value="met">
+                                <label for="auth_entered_met" class="sr-only">Met</label>
+                            </div>
+                            <div class="review-cell">
+                                <input type="radio" name="auth_entered" id="auth_entered_partially" value="partially">
+                                <label for="auth_entered_partially" class="sr-only">Partially Met</label>
+                            </div>
+                            <div class="review-cell">
+                                <input type="radio" name="auth_entered" id="auth_entered_not" value="not">
+                                <label for="auth_entered_not" class="sr-only">Not Met</label>
+                            </div>
+                            <div class="review-cell">
+                                <input type="radio" name="auth_entered" id="auth_entered_na" value="na">
+                                <label for="auth_entered_na" class="sr-only">N/A</label>
+                            </div>
+                            <div class="review-cell">
+                                <textarea id="auth_entered_comments" class="comment-area" aria-label="Authorizations Comments"></textarea>
+                            </div>
+                        </div>
+                        
+                        <div class="review-item">
+                            <div class="review-cell review-item-title">Member/Guardian Signature on Current IPOS</div>
+                            <div class="review-cell">
+                                <input type="radio" name="signature" id="signature_met" value="met">
+                                <label for="signature_met" class="sr-only">Met</label>
+                            </div>
+                            <div class="review-cell">
+                                <input type="radio" name="signature" id="signature_partially" value="partially">
+                                <label for="signature_partially" class="sr-only">Partially Met</label>
+                            </div>
+                            <div class="review-cell">
+                                <input type="radio" name="signature" id="signature_not" value="not">
+                                <label for="signature_not" class="sr-only">Not Met</label>
+                            </div>
+                            <div class="review-cell">
+                                <input type="radio" name="signature" id="signature_na" value="na">
+                                <label for="signature_na" class="sr-only">N/A</label>
+                            </div>
+                            <div class="review-cell">
+                                <textarea id="signature_comments" class="comment-area" aria-label="Signature Comments"></textarea>
+                            </div>
+                        </div>
+                        
+                        <div class="review-item">
+                            <div class="review-cell review-item-title">Residential/CLS Assessment</div>
+                            <div class="review-cell">
+                                <input type="radio" name="residential" id="residential_met" value="met">
+                                <label for="residential_met" class="sr-only">Met</label>
+                            </div>
+                            <div class="review-cell">
+                                <input type="radio" name="residential" id="residential_partially" value="partially">
+                                <label for="residential_partially" class="sr-only">Partially Met</label>
+                            </div>
+                            <div class="review-cell">
+                                <input type="radio" name="residential" id="residential_not" value="not">
+                                <label for="residential_not" class="sr-only">Not Met</label>
+                            </div>
+                            <div class="review-cell">
+                                <input type="radio" name="residential" id="residential_na" value="na">
+                                <label for="residential_na" class="sr-only">N/A</label>
+                            </div>
+                            <div class="review-cell">
+                                <textarea id="residential_comments" class="comment-area" aria-label="Residential Comments"></textarea>
+                            </div>
+                        </div>
+                        
+                        <div class="review-item">
+                            <div class="review-cell review-item-title">Referrals for Service (ABA, OT, SP, CLS, SKB, Support Emp...)</div>
+                            <div class="review-cell">
+                                <input type="radio" name="referrals" id="referrals_met" value="met">
+                                <label for="referrals_met" class="sr-only">Met</label>
+                            </div>
+                            <div class="review-cell">
+                                <input type="radio" name="referrals" id="referrals_partially" value="partially">
+                                <label for="referrals_partially" class="sr-only">Partially Met</label>
+                            </div>
+                            <div class="review-cell">
+                                <input type="radio" name="referrals" id="referrals_not" value="not">
+                                <label for="referrals_not" class="sr-only">Not Met</label>
+                            </div>
+                            <div class="review-cell">
+                                <input type="radio" name="referrals" id="referrals_na" value="na">
+                                <label for="referrals_na" class="sr-only">N/A</label>
+                            </div>
+                            <div class="review-cell">
+                                <textarea id="referrals_comments" class="comment-area" aria-label="Referrals Comments"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Additional Comments Section -->
+            <button type="button" class="toggle-button" data-section="comments-section" aria-expanded="false" aria-controls="comments-section">
+                <span class="toggle-icon" aria-hidden="true"></span>
+                Additional Comments
+            </button>
+            <section id="comments-section" class="section section-content" aria-hidden="true">
+                <label for="additionalComments" class="sr-only">Additional Comments</label>
+                <textarea id="additionalComments" class="comment-area final-comments" aria-label="Additional Comments"></textarea>
+            </section>
+
+            <!-- Signatures Section -->
+            <button type="button" class="toggle-button" data-section="signatures-section" aria-expanded="false" aria-controls="signatures-section">
+                <span class="toggle-icon" aria-hidden="true"></span>
+                Signatures
+            </button>
+            <section id="signatures-section" class="section section-content" aria-hidden="true">
+                <p class="signature-instructions">By signing below, staff acknowledges they have participated in this supervision session and reviewed the contents of this form.</p>
+                
+                <div class="signatures-container">
+                    <!-- Staff Signature -->
+                    <div class="signature-block">
+                        <h3>Staff Signature</h3>
+                        <div class="signature-pad-container">
+                            <canvas id="staffSignature" class="signature-pad" width="400" height="150"></canvas>
+                            <div class="signature-pad-actions">
+                                <button type="button" id="clearStaffSignature" class="signature-clear-btn">Clear</button>
+                            </div>
+                        </div>
+                        <div class="signature-date">
+                            <label for="staffSignatureDate">Date:</label>
+                            <input type="date" id="staffSignatureDate">
+                        </div>
+                    </div>
+                    
+                    <!-- Supervisor Signature -->
+                    <div class="signature-block">
+                        <h3>Supervisor Signature</h3>
+                        <div class="signature-pad-container">
+                            <canvas id="supervisorSignature" class="signature-pad" width="400" height="150"></canvas>
+                            <div class="signature-pad-actions">
+                                <button type="button" id="clearSupervisorSignature" class="signature-clear-btn">Clear</button>
+                            </div>
+                        </div>
+                        <div class="signature-date">
+                            <label for="supervisorSignatureDate">Date:</label>
+                            <input type="date" id="supervisorSignatureDate">
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="form-actions">
+                <button type="button" id="clearForm" class="button danger-button">Clear Form</button>
+                <button type="button" id="blankPdfButton" class="button secondary-button">Save Blank PDF</button>
+                <button type="button" id="saveDraft" class="button secondary-button">Save Draft</button>
+                <button type="button" id="saveAsPdf" class="button primary-button">Save as PDF</button>
+            </div>
+        </form>
+        
+        <!-- Loading Overlay -->
+        <div id="loadingOverlay" class="loading-overlay" aria-hidden="true">
+            <div class="loading-content">
+                <div class="spinner"></div>
+                <p>Processing your form...</p>
+            </div>
+        </div>
+        
+        <!-- Notification -->
+        <div id="notification" class="notification" aria-live="polite" aria-hidden="true"></div>
+    </main>
+
+    <script src="supervision-form.js"></script>
+</body>
+</html>
