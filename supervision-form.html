@@ -26,8 +26,29 @@
                 <li>Click on section headers to expand/collapse each section</li>
                 <li>For Client-Specific Review, only Case Review and Additional Comments will be shown</li>
                 <li>Click "Save as PDF" when finished to download your completed form</li>
-                <li>Use "Save Draft" to save your progress and continue later</li>
+                <li>Use "Save Current Draft" to save your progress</li>
             </ul>
+            <div class="privacy-notice">
+                <strong>Privacy Notice:</strong> Your draft forms are stored only in your browser and are not visible to other users of this form. To maintain privacy, please use the "Switch User" button if someone else needs to use this form on the same computer.
+            </div>
+        </section>
+
+        <!-- Draft Management Section -->
+        <section class="drafts-manager">
+            <button type="button" class="toggle-button" data-section="drafts-section" aria-expanded="false" aria-controls="drafts-section">
+                <span class="toggle-icon" aria-hidden="true"></span>
+                Manage Drafts
+            </button>
+            <div id="drafts-section" class="section section-content" aria-hidden="true">
+                <div class="drafts-actions">
+                    <button type="button" id="newDraftButton" class="button secondary-button">New Draft</button>
+                    <button type="button" id="saveAsNewButton" class="button secondary-button">Save As New Draft</button>
+                </div>
+                <div class="drafts-list">
+                    <!-- This will be populated with saved drafts -->
+                    <p>Loading drafts...</p>
+                </div>
+            </div>
         </section>
 
         <form id="supervisionForm">
@@ -353,7 +374,7 @@
             </section>
 
             <!-- Case Review Section -->
-            <button type="button" class="toggle-button" data-section="case-review-section" id="caseReviewButton" style="display: none;" aria-expanded="false" aria-controls="case-review-section">
+            <button type="button" class="toggle-button" data-section="case-review-section" id="caseReviewButton" aria-expanded="false" aria-controls="case-review-section">
                 <span class="toggle-icon" aria-hidden="true"></span>
                 Case Review
             </button>
@@ -523,7 +544,7 @@
                         </div>
                     </div>
                     
-                    <!-- Guardianship -->
+                    <!-- Guardianship Section -->
                     <div class="review-category">
                         <div class="review-item">
                             <div class="review-cell review-item-title">Guardianship Current</div>
@@ -864,7 +885,7 @@
             <div class="form-actions">
                 <button type="button" id="clearForm" class="button danger-button">Clear Form</button>
                 <button type="button" id="blankPdfButton" class="button secondary-button">Save Blank PDF</button>
-                <button type="button" id="saveDraft" class="button secondary-button">Save Draft</button>
+                <button type="button" id="saveDraft" class="button secondary-button">Save Current Draft</button>
                 <button type="button" id="saveAsPdf" class="button primary-button">Save as PDF</button>
             </div>
         </form>

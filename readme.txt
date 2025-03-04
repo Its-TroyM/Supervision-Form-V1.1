@@ -1,142 +1,56 @@
-=======================================================================
-                Wayne Center - Clinical Supervision Form
-                           User Guide
-=======================================================================
+# Clinical Supervision Form
 
-QUICK START:
------------
-Windows Users: Double-click the "Open-Form.bat" file
-Mac Users: Double-click the "open-form.command" file (You might need to
-           right-click and select "Open" the first time)
+This folder contains everything you need to use the Clinical Supervision web form.
 
-CONTENTS:
---------
-1. Getting Started
-2. Using the Form
-3. Saving Your Work
-4. Printing a Blank Form
-5. Troubleshooting
-6. Privacy & Security Information
+## Files Included
 
-=======================================================================
-1. GETTING STARTED
-=======================================================================
+- `supervision-form.html` - The main web form
+- `supervision-form.css` - Stylesheet for the form
+- `supervision-form.js` - JavaScript for form interactivity and saving
+- `Open-Form.bat` - Batch script to launch the form in your browser 
+- `install-form.bat` - One-time setup script
+- `README.txt` - This readme file
 
-What's In This Package:
-----------------------
-- Open-Form.bat - Click this to start on Windows
-- open-form.command - Click this to start on Mac
-- supervision-form.html - The main form file
-- supervision-form.css - Form styling
-- supervision-form.js - Form functionality
-- logo.png - Wayne Center logo
-- README.txt - This help file
-- Saved Forms folder - Where your PDFs will be saved
+## Initial Setup (One-Time)
 
-First-Time Setup (One-Time Only):
---------------------------------
-Windows:
-1. No setup needed, just double-click "Open-Form.bat"
+1. Unzip all files into a folder on your computer. Keep them together.
+2. Double-click `install-form.bat` to create a desktop shortcut. 
+   - This will also create a `Saved Forms` folder for completed PDFs.
+3. Initial setup is complete! You can now use the form.
 
-Mac:
-1. The first time you run the form, right-click on "open-form.command"
-2. Select "Open" from the menu
-3. If prompted with a security warning, click "Open"
-4. For future use, you can simply double-click the file
+## Using the Form 
 
-=======================================================================
-2. USING THE FORM
-=======================================================================
+There are two ways to open the form:
 
-Filling Out the Form:
---------------------
-1. Enter the required information at the top (marked with *)
-2. Click section headers to expand/collapse sections
-3. Fill in the appropriate information in each section
-4. For Client-Specific Review, select "Client-Specific Review" from 
-   the dropdown menu at the top
+1. Double-click the `Open-Form.bat` file directly.
+2. Double-click the shortcut created on your desktop.
 
-Navigation Tips:
---------------
-- Use Tab key to move between fields
-- Click on section headers to expand/collapse sections
-- Required fields are marked with an asterisk (*)
-- You can fill out sections in any order
+This will open the form in your default web browser.
 
-=======================================================================
-3. SAVING YOUR WORK
-=======================================================================
+## Filling Out the Form
 
-Save as Draft:
--------------
-- Click "Save Draft" to save your progress
-- Your form data is saved locally on your computer
-- The next time you open the form, your data will be loaded automatically
-- Drafts are saved automatically every few minutes
+- Complete all required fields marked with a red asterisk (*). 
+- Click section headers to expand or collapse that section.
+- For client-specific reviews, only Case Review and Comments will show.
+- Your form automatically saves as you fill it out. 
+- Use the Manage Drafts section to create, load, or delete form drafts.
 
-Create Final PDF:
----------------
-1. Fill out the form completely
-2. Click the "Save as PDF" button
-3. Choose where to save the PDF file (defaults to Downloads folder)
-4. The PDF will include all form data and signatures
+## Privacy 
 
-=======================================================================
-4. PRINTING A BLANK FORM
-=======================================================================
+- Form data is stored only on your local computer, in your browser. 
+- Drafts are private to the current Windows user account.
+- Use the "Switch User" button if multiple people use this computer.
 
-To create a blank form for manual completion:
--------------------------------------------
-1. Click the "Save Blank PDF" button
-2. A blank form will be generated with spaces for writing
-3. Print this PDF for manual completion
+## Saving the Form
 
-=======================================================================
-5. TROUBLESHOOTING
-=======================================================================
+When finished, click "Save as PDF" to generate a completed PDF.
 
-Common Issues:
-------------
-- If the form doesn't open, try right-clicking the batch/command file
-  and select "Run as administrator" (Windows) or "Open" (Mac)
-  
-- If you see a "File not found" error, make sure all files are in the
-  same folder
+- Completed PDFs will be saved to the `Saved Forms` folder.
+- You can also "Save Blank PDF" to print and complete manually.
 
-- If signatures don't work, try using a different browser (Chrome works best)
+## Troubleshooting
 
-- If the form looks strange or doesn't work correctly, try updating your
-  web browser to the latest version
-
-Browser Compatibility:
---------------------
-This form works best with:
-- Google Chrome (recommended)
-- Microsoft Edge
-- Firefox
-- Safari (Mac)
-
-=======================================================================
-6. PRIVACY & SECURITY INFORMATION
-=======================================================================
-
-Data Storage:
------------
-- All form data is stored locally on your computer
-- No data is sent to external servers
-- Form drafts are saved in your browser's local storage
-- PDFs are saved only where you choose to save them
-
-Security Best Practices:
-----------------------
-- Do not share your draft forms or PDFs via email unless encrypted
-- Store completed PDFs in a secure location
-- Log out of your computer when not in use
-- Keep your browser updated for the latest security features
-
-=======================================================================
-
-For additional help, please contact your IT support department.
-
-Wayne Center - Clinical Supervision Form v1.0
-Last Updated: February 2025
+- Ensure all form files stay together in the same folder.
+- The form works best in Chrome, Firefox, or Edge browsers.
+- If the form doesn't open, right-click `supervision-form.html`, 
+  select Open With, and choose your web browser.

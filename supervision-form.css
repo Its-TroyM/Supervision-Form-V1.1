@@ -1,6 +1,6 @@
 /* 
  * Wayne Center Clinical Supervision Form Stylesheet
- * Created: February 2025
+ * Created: March 2025
  * 
  * This stylesheet follows a component-based approach for maintainability.
  * Colors use variables for easy theming.
@@ -120,12 +120,20 @@ body {
 
 .instructions ul {
     margin-left: var(--spacing-l);
-    margin-bottom: 0;
+    margin-bottom: var(--spacing-s);
 }
 
 .required {
     color: var(--error-color);
     margin-left: var(--spacing-xs);
+}
+
+.privacy-notice {
+    margin-top: var(--spacing-m);
+    padding: var(--spacing-s);
+    background-color: #fff;
+    border-radius: var(--radius-sm);
+    border-left: 3px solid var(--accent-color);
 }
 
 /* ===== Section Styling ===== */
@@ -335,6 +343,7 @@ textarea.final-comments {
 .case-review-container {
     width: 100%;
     overflow-x: auto;
+    display: block;
 }
 
 .review-item-header {
@@ -346,12 +355,20 @@ textarea.final-comments {
     position: sticky;
     top: 0;
     z-index: 10;
+    width: 100%;
+}
+
+.review-category {
+    margin-bottom: 15px;
+    width: 100%;
+    display: block;
 }
 
 .review-item {
     display: grid;
     grid-template-columns: 2fr repeat(4, 1fr) 2fr;
     border-bottom: 1px solid var(--border-color);
+    width: 100%;
 }
 
 .review-cell {
@@ -359,6 +376,7 @@ textarea.final-comments {
     display: flex;
     align-items: center;
     justify-content: center;
+    min-height: 40px;
 }
 
 .review-cell:first-child {
@@ -371,6 +389,20 @@ textarea.final-comments {
 
 .review-subitem .review-cell:first-child {
     padding-left: 30px;
+    font-style: italic;
+}
+
+/* Make review items more visible with hover effects */
+.review-item:hover {
+    background-color: var(--primary-light);
+}
+
+/* Fix for radio buttons in review items to make them more visible */
+.review-cell input[type="radio"] {
+    width: 18px;
+    height: 18px;
+    visibility: visible;
+    display: inline-block;
 }
 
 /* ===== Form Actions ===== */
@@ -495,62 +527,6 @@ textarea.final-comments {
     background-color: var(--error-color);
 }
 
-/* ===== Responsive Design ===== */
-@media (max-width: 768px) {
-    .form-container {
-        padding: var(--spacing-s);
-    }
-    
-    .form-header {
-        flex-direction: column;
-        text-align: center;
-    }
-    
-    .form-row {
-        flex-direction: column;
-        gap: var(--spacing-s);
-    }
-    
-    .assessment-item {
-        grid-template-columns: 1fr;
-    }
-    
-    .assessment-grid {
-        flex-wrap: wrap;
-        justify-content: flex-start;
-    }
-    
-    .radio-option {
-        margin-bottom: var(--spacing-s);
-        margin-right: var(--spacing-l);
-    }
-    
-    .table-row {
-        grid-template-columns: 1fr;
-    }
-    
-    .table-cell:not(:last-child) {
-        border-right: none;
-        border-bottom: 1px solid var(--border-color);
-    }
-    
-    .review-item-header, .review-item {
-        grid-template-columns: repeat(3, 1fr);
-    }
-    
-    .review-cell:nth-child(n+4) {
-        display: none;
-    }
-    
-    .form-actions {
-        flex-direction: column;
-    }
-    
-    .button {
-        width: 100%;
-    }
-}
-
 /* ===== Signature Section ===== */
 .signatures-container {
     display: flex;
@@ -632,63 +608,107 @@ textarea.final-comments {
     font-style: italic;
 }
 
-/* ===== Print Styles ===== */
-@media print {
-    .form-container {
-        margin: 0;
-        padding: 0;
-    }
-    
-    .toggle-button {
-        display: none;
-    }
-    
-    .section-content {
-        display: block !important;
-        page-break-inside: avoid;
-    }
-    
-    .form-actions {
-        display: none;
-    }
-    
-    body {
-        background-color: white;
-    }
-    
-    .instructions {
-        display: none;
-    }
-    
-    .signature-pad-actions {
-        display: none;
-    }
+/* ===== Drafts Manager Styles ===== */
+.drafts-manager {
+    margin-bottom: var(--spacing-l);
 }
 
-/* ===== Accessibility Enhancements ===== */
-:focus {
-    outline: 2px solid var(--accent-color);
-    outline-offset: 2px;
+.drafts-actions {
+    display: flex;
+    gap: var(--spacing-m);
+    margin-bottom: var(--spacing-m);
 }
 
-/* Improve focus visibility for radio buttons */
-input[type="radio"]:focus + label {
-    outline: 2px solid var(--accent-color);
-    outline-offset: 2px;
+.drafts-list {
+    background-color: var(--primary-light);
+    border-radius: var(--radius-sm);
+    padding: var(--spacing-m);
+    max-height: 300px;
+    overflow-y: auto;
 }
 
-/* High contrast mode support */
-@media (forced-colors: active) {
-    .toggle-button, 
-    .button, 
-    input, 
-    textarea, 
-    select {
-        border: 1px solid;
-    }
+.draft-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--spacing-s);
+    border-bottom: 1px solid var(--border-color);
+    margin-bottom: var(--spacing-s);
+    background-color: white;
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow-sm);
 }
 
-/* User identification dialog styles */
+.draft-item:last-child {
+    margin-bottom: 0;
+    border-bottom: none;
+}
+
+.draft-item.current {
+    background-color: #e0d0e9;
+    border-left: 4px solid var(--primary-color);
+}
+
+.draft-info {
+    flex: 1;
+}
+
+.draft-name {
+    font-weight: bold;
+    color: var(--primary-color);
+    margin-bottom: 2px;
+}
+
+.draft-date, .draft-type {
+    font-size: 0.9em;
+    color: var(--text-color);
+    margin-bottom: 2px;
+}
+
+.draft-actions {
+    display: flex;
+    gap: var(--spacing-s);
+}
+
+.draft-actions button {
+    padding: 4px 10px;
+    font-size: 0.9em;
+    cursor: pointer;
+    border-radius: var(--radius-sm);
+    transition: background-color var(--transition-fast);
+}
+
+.load-draft {
+    background-color: var(--primary-light);
+    color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+}
+
+.load-draft:hover {
+    background-color: #e0d0e9;
+}
+
+.delete-draft {
+    background-color: #fff2f2;
+    color: var(--error-color);
+    border: 1px solid var(--error-color);
+}
+
+.delete-draft:hover {
+    background-color: #ffe6e6;
+}
+
+.duplicate-draft {
+    background-color: #f0f8ff;
+    color: #0066cc;
+    border: 1px solid #0066cc;
+}
+
+.duplicate-draft:hover {
+    background-color: #e6f2ff;
+}
+
+/* ===== User identification dialog styles ===== */
 .user-dialog {
     position: fixed;
     top: 0;
@@ -752,7 +772,7 @@ input[type="radio"]:focus + label {
     margin-top: var(--spacing-l);
 }
 
-/* User display in header styles */
+/* ===== User display in header styles ===== */
 .user-display {
     display: flex;
     align-items: center;
@@ -775,8 +795,62 @@ input[type="radio"]:focus + label {
     min-width: auto;
 }
 
-/* Responsive adjustments */
+/* ===== Responsive Design ===== */
 @media (max-width: 768px) {
+    .form-container {
+        padding: var(--spacing-s);
+    }
+    
+    .form-header {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .form-row {
+        flex-direction: column;
+        gap: var(--spacing-s);
+    }
+    
+    .assessment-item {
+        grid-template-columns: 1fr;
+    }
+    
+    .assessment-grid {
+        flex-wrap: wrap;
+        justify-content: flex-start;
+    }
+    
+    .radio-option {
+        margin-bottom: var(--spacing-s);
+        margin-right: var(--spacing-l);
+    }
+    
+    .table-row {
+        grid-template-columns: 1fr;
+    }
+    
+    .table-cell:not(:last-child) {
+        border-right: none;
+        border-bottom: 1px solid var(--border-color);
+    }
+    
+    .review-item-header, .review-item {
+        grid-template-columns: 2fr repeat(2, 1fr) 2fr;
+    }
+    
+    .review-cell:nth-child(4),
+    .review-cell:nth-child(5) {
+        display: none;
+    }
+    
+    .form-actions {
+        flex-direction: column;
+    }
+    
+    .button {
+        width: 100%;
+    }
+    
     .user-dialog-content {
         width: 95%;
         padding: var(--spacing-m);
@@ -790,5 +864,76 @@ input[type="radio"]:focus + label {
     
     #switchUserBtn {
         align-self: flex-end;
+    }
+    
+    .draft-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .draft-actions {
+        margin-top: var(--spacing-s);
+        width: 100%;
+        justify-content: space-between;
+    }
+}
+
+/* ===== Print Styles ===== */
+@media print {
+    .form-container {
+        margin: 0;
+        padding: 0;
+    }
+    
+    .toggle-button {
+        display: none;
+    }
+    
+    .section-content {
+        display: block !important;
+        page-break-inside: avoid;
+    }
+    
+    .form-actions {
+        display: none;
+    }
+    
+    body {
+        background-color: white;
+    }
+    
+    .instructions {
+        display: none;
+    }
+    
+    .signature-pad-actions {
+        display: none;
+    }
+    
+    .drafts-manager, .user-display {
+        display: none;
+    }
+}
+
+/* ===== Accessibility Enhancements ===== */
+:focus {
+    outline: 2px solid var(--accent-color);
+    outline-offset: 2px;
+}
+
+/* Improve focus visibility for radio buttons */
+input[type="radio"]:focus + label {
+    outline: 2px solid var(--accent-color);
+    outline-offset: 2px;
+}
+
+/* High contrast mode support */
+@media (forced-colors: active) {
+    .toggle-button, 
+    .button, 
+    input, 
+    textarea, 
+    select {
+        border: 1px solid;
     }
 }
